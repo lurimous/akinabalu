@@ -93,6 +93,67 @@
       border-radius: 2px;
     }
 
+    /* ── NAV DROPDOWN ── */
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-dropdown > a::after {
+      content: '';
+      width: 6px; height: 6px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform 0.2s;
+      opacity: 0.7;
+    }
+
+    .nav-dropdown:hover > a::after {
+      transform: rotate(-135deg) translateY(-2px);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      padding-top: 14px;
+      min-width: 240px;
+    }
+
+    .dropdown-menu-inner {
+      background: rgba(26,26,26,0.97);
+      border: 1px solid rgba(245,168,0,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .nav-dropdown:hover .dropdown-menu { display: block; }
+
+    .dropdown-menu-inner a {
+      display: block;
+      padding: 13px 18px;
+      color: rgba(255,255,255,0.8) !important;
+      font-size: 13px !important;
+      opacity: 1 !important;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.15s, color 0.15s !important;
+    }
+
+    .dropdown-menu-inner a:last-child { border-bottom: none; }
+
+    .dropdown-menu-inner a:hover {
+      background: rgba(245,168,0,0.1);
+      color: var(--gold) !important;
+    }
+
     /* ── HERO ── */
     #home {
       min-height: 100vh;
@@ -103,9 +164,10 @@
       text-align: center;
       padding: 120px 24px 80px;
       background:
-        radial-gradient(ellipse at 65% 40%, rgba(245,168,0,0.13) 0%, transparent 55%),
-        radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.11) 0%, transparent 50%),
-        #1A1A1A;
+        radial-gradient(ellipse at 65% 40%, rgba(245,168,0,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
+        linear-gradient(rgba(20,20,20,0.72), rgba(20,20,20,0.82)),
+        url('assets/hero-bg.jpg') center/cover no-repeat;
       position: relative;
       overflow: hidden;
     }
@@ -300,9 +362,13 @@
     }
 
     .about-visual-inner img {
-      width: 72%;
-      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.6));
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    .about-visual:hover .about-visual-inner img { transform: scale(1.04); }
 
     .about-badge {
       position: absolute;
@@ -354,12 +420,19 @@
 
     .menu-card-img {
       background: #111;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 72px;
+      height: 200px;
+      overflow: hidden;
     }
+
+    .menu-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block;
+    }
+
+    .menu-card:hover .menu-card-img img { transform: scale(1.07); }
 
     .menu-card-body { padding: 24px; }
 
@@ -597,6 +670,232 @@
     .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
     .footer-bottom a:hover { color: var(--gold); }
 
+    /* ── PROMO STRIP ── */
+    .promo-strip {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+    }
+
+    .promo-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .promo-strip:hover img { transform: scale(1.04); }
+
+    .promo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(20,20,20,0.82) 0%, rgba(20,20,20,0.35) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0 10%;
+      gap: 14px;
+    }
+
+    .promo-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .promo-overlay h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      color: #fff;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    /* ── PRELOADER ── */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #1A1A1A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 24px;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #preloader img {
+      width: 130px;
+      animation: preloaderPulse 1.4s ease-in-out infinite alternate;
+    }
+
+    .preloader-bar {
+      width: 120px;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .preloader-bar-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: preloaderFill 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes preloaderPulse {
+      from { transform: scale(0.94); opacity: 0.65; }
+      to   { transform: scale(1.04); opacity: 1; }
+    }
+
+    @keyframes preloaderFill {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* ── NAV UNDERLINE ── */
+    .nav-links > li:not(.nav-dropdown) > a:not(.nav-cta) {
+      position: relative;
+    }
+
+    .nav-links > li:not(.nav-dropdown) > a:not(.nav-cta)::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-links > li:not(.nav-dropdown) > a:not(.nav-cta):hover::after { width: 100%; }
+
+    /* ── ORDER ── */
+    #order { background: var(--dark); }
+
+    .order-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .order-text .section-title { color: #fff; }
+
+    .order-text p {
+      margin-top: 20px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.85;
+    }
+
+    .order-steps {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .order-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .order-step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--dark);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.04em;
+    }
+
+    .order-step-body h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: #fff;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .order-step-body p {
+      margin-top: 0;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+
+    .order-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .order-cart-wrap {
+      position: relative;
+      width: min(380px, 100%);
+    }
+
+    .order-cart-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(245,168,0,0.14) 0%, transparent 70%);
+    }
+
+    .order-cart-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 16px 48px rgba(245,168,0,0.25));
+      animation: floatCart 4s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes floatCart {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 14px 20px; }
@@ -617,12 +916,37 @@
       .nav-links a { font-size: 22px; }
       .nav-hamburger { display: flex; }
 
+      .nav-dropdown .dropdown-menu {
+        position: static;
+        display: block;
+        padding-top: 0;
+        min-width: unset;
+      }
+
+      .nav-dropdown .dropdown-menu-inner {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+
+      .nav-dropdown .dropdown-menu-inner a {
+        font-size: 15px !important;
+        color: rgba(255,255,255,0.5) !important;
+        padding: 8px 0;
+        border: none;
+        text-align: center;
+      }
+
+      .nav-dropdown > a::after { display: none; }
+
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-visual { order: -1; }
       .about-badge { display: none; }
 
       .menu-grid { grid-template-columns: 1fr; }
       .why-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .order-grid { grid-template-columns: 1fr; gap: 40px; }
+      .order-visual { order: -1; }
       .locations-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
@@ -636,6 +960,12 @@
 </head>
 <body>
 
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <img src="aki-nabalu_rounded.png" alt="Loading...">
+    <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+  </div>
+
   <!-- NAVBAR -->
   <nav id="navbar">
     <a href="#home" class="nav-logo">
@@ -646,6 +976,16 @@
       <li><a href="#menu">Menu</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#locations">Locations</a></li>
+      <li><a href="#order">Order</a></li>
+      <li class="nav-dropdown">
+        <a href="#">Supplies</a>
+        <div class="dropdown-menu">
+          <div class="dropdown-menu-inner">
+            <a href="#">Borneo Frozen And Food Supplies</a>
+            <a href="products.html">Product Types</a>
+          </div>
+        </div>
+      </li>
       <li><a href="#contact" class="nav-cta">Order Now</a></li>
     </ul>
     <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
@@ -672,29 +1012,29 @@
   <section id="about">
     <div class="container">
       <div class="about-grid">
-        <div class="about-text">
+        <div class="about-text reveal">
           <div class="section-eyebrow">Our Story</div>
           <h2 class="section-title">Flavor Rooted<br>in Heritage</h2>
           <p>Named after the legendary peaks of Mount Kinabalu, Aki-Nabalu Fried Chicken was founded on a simple promise — serve food that's as bold and unforgettable as the mountains that inspired us.</p>
           <p>Every piece of chicken is hand-marinated with our signature spice blend, coated in a perfectly seasoned crispy crust, and cooked fresh to order. No shortcuts. No compromise. Just great chicken.</p>
           <div class="about-stat-row">
-            <div class="about-stat">
+            <div class="about-stat reveal reveal-d1">
               <strong>100%</strong>
-              <span>Fresh Daily</span>
+              <span>Original recipe</span>
             </div>
-            <div class="about-stat">
+            <div class="about-stat reveal reveal-d2">
               <strong>12+</strong>
               <span>Secret Spices</span>
             </div>
-            <div class="about-stat">
+            <div class="about-stat reveal reveal-d3">
               <strong>Est.</strong>
               <span>2026</span>
             </div>
           </div>
         </div>
-        <div class="about-visual">
+        <div class="about-visual reveal reveal-d2">
           <div class="about-visual-inner">
-            <img src="aki-nabalu_rounded.png" alt="Aki-Nabalu Mascot">
+            <img src="assets/about-photo.jpg" alt="Aki-Nabalu Restaurant">
           </div>
           <div class="about-badge">
             <strong>Est.</strong>
@@ -708,27 +1048,27 @@
   <!-- MENU -->
   <section id="menu">
     <div class="container">
-      <div class="section-eyebrow">What We Serve</div>
-      <h2 class="section-title light">Our Signature Menu</h2>
+      <div class="section-eyebrow reveal">What We Serve</div>
+      <h2 class="section-title light reveal reveal-d1">Our Signature Menu</h2>
       <div class="menu-grid">
-        <div class="menu-card">
-          <div class="menu-card-img">🍗</div>
+        <div class="menu-card reveal reveal-d1">
+          <div class="menu-card-img"><img src="assets/menu-chicken.jpg" alt="Crispy Fried Chicken"></div>
           <div class="menu-card-body">
             <div class="menu-card-tag">Signature</div>
             <div class="menu-card-title">Crispy Fried Chicken</div>
             <p class="menu-card-desc">Our classic — golden, crunchy, and bursting with bold Bornean spice. Available in original, spicy, and extra spicy.</p>
           </div>
         </div>
-        <div class="menu-card">
-          <div class="menu-card-img">🍔</div>
+        <div class="menu-card reveal reveal-d2">
+          <div class="menu-card-img"><img src="assets/menu-burger.jpg" alt="Chicken Burger"></div>
           <div class="menu-card-body">
             <div class="menu-card-tag">Fan Favourite</div>
             <div class="menu-card-title">Chicken Burgers</div>
             <p class="menu-card-desc">Juicy crispy chicken fillet stacked high in a toasted brioche bun with house slaw and our secret sauce.</p>
           </div>
         </div>
-        <div class="menu-card">
-          <div class="menu-card-img">🍟</div>
+        <div class="menu-card reveal reveal-d3">
+          <div class="menu-card-img"><img src="assets/menu-sides.jpg" alt="Sides & Combos"></div>
           <div class="menu-card-body">
             <div class="menu-card-tag">Sides & More</div>
             <div class="menu-card-title">Sides & Combos</div>
@@ -742,27 +1082,27 @@
   <!-- WHY US -->
   <section id="why">
     <div class="container">
-      <div class="why-header">
+      <div class="why-header reveal">
         <div class="section-eyebrow">Why Choose Us</div>
         <h2 class="section-title">The Aki-Nabalu<br>Difference</h2>
       </div>
       <div class="why-grid">
-        <div class="why-card">
+        <div class="why-card reveal reveal-d1">
           <div class="why-icon">🌿</div>
           <h3>Fresh Ingredients</h3>
           <p>We source locally and prepare fresh every single day. No frozen shortcuts — ever.</p>
         </div>
-        <div class="why-card">
+        <div class="why-card reveal reveal-d2">
           <div class="why-icon">🌶️</div>
           <h3>Bold Flavors</h3>
           <p>12 secret spices, perfected over years. A flavor profile that keeps you coming back.</p>
         </div>
-        <div class="why-card">
+        <div class="why-card reveal reveal-d3">
           <div class="why-icon">👨‍👩‍👧</div>
           <h3>Family Friendly</h3>
           <p>A welcoming space for everyone — great food should bring people together.</p>
         </div>
-        <div class="why-card">
+        <div class="why-card reveal reveal-d4">
           <div class="why-icon">⚡</div>
           <h3>Fast Service</h3>
           <p>Hot, fresh, and in your hands fast. Because good food shouldn't keep you waiting.</p>
@@ -771,26 +1111,80 @@
     </div>
   </section>
 
+  <!-- PROMO STRIP -->
+  <div class="promo-strip reveal">
+    <img src="assets/promo-wings.jpg" alt="Aki-Nabalu Wings">
+    <div class="promo-overlay">
+      <div class="promo-eyebrow">Limited Offer</div>
+      <h3>Our Wings Are Legendary</h3>
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- ORDER ONLINE -->
+  <section id="order">
+    <div class="container">
+      <div class="order-grid">
+        <div class="order-text reveal">
+          <div class="section-eyebrow">Order Online</div>
+          <h2 class="section-title">Get Your Crunch<br>Delivered</h2>
+          <p>Ordering Aki-Nabalu is as easy as 1-2-3. Fresh, crispy chicken made to order — straight to your door or ready for pickup.</p>
+          <div class="order-steps">
+            <div class="order-step reveal reveal-d1">
+              <div class="order-step-num">1</div>
+              <div class="order-step-body">
+                <h4>Browse the Menu</h4>
+                <p>Pick your favourites — classics, burgers, sides, and combos.</p>
+              </div>
+            </div>
+            <div class="order-step reveal reveal-d2">
+              <div class="order-step-num">2</div>
+              <div class="order-step-body">
+                <h4>Add to Cart</h4>
+                <p>Customise your order — spice level, extras, and bundle deals.</p>
+              </div>
+            </div>
+            <div class="order-step reveal reveal-d3">
+              <div class="order-step-num">3</div>
+              <div class="order-step-body">
+                <h4>Enjoy the Crunch</h4>
+                <p>Sit back and wait. Hot, fresh Aki-Nabalu is on its way to you.</p>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:36px;">
+            <a href="#contact" class="btn-primary reveal reveal-d4">Order Now</a>
+          </div>
+        </div>
+        <div class="order-visual reveal reveal-d2">
+          <div class="order-cart-wrap">
+            <img src="assets/cart.png" alt="Order Online">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- LOCATIONS -->
   <section id="locations">
     <div class="container">
-      <div class="section-eyebrow">Find Us</div>
-      <h2 class="section-title">Coming to a City<br>Near You</h2>
-      <p class="section-sub">We're growing fast. Aki-Nabalu is expanding across Malaysia — watch this space for new openings near you.</p>
+      <div class="section-eyebrow reveal">Find Us</div>
+      <h2 class="section-title reveal reveal-d1">Coming to a City<br>Near You</h2>
+      <p class="section-sub reveal reveal-d2">We're growing fast. Aki-Nabalu is expanding across Malaysia — watch this space for new openings near you.</p>
       <div class="locations-grid">
-        <div class="location-card">
+        <div class="location-card reveal reveal-d1">
           <div class="loc-icon">📍</div>
           <h4>Kota Kinabalu</h4>
           <p>Sabah's capital — where our roots run deep. Our flagship outlet opening soon.</p>
           <span class="coming-soon">Coming Soon</span>
         </div>
-        <div class="location-card">
+        <div class="location-card reveal reveal-d2">
           <div class="loc-icon">📍</div>
           <h4>Kuala Lumpur</h4>
           <p>Bringing Bornean bold flavors to the heart of Malaysia's capital.</p>
           <span class="coming-soon">Coming Soon</span>
         </div>
-        <div class="location-card">
+        <div class="location-card reveal reveal-d3">
           <div class="loc-icon">📍</div>
           <h4>More Cities</h4>
           <p>Penang, Johor Bahru, Kuching and beyond — we're on our way.</p>
@@ -803,10 +1197,10 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="container">
-      <div class="section-eyebrow">Get in Touch</div>
-      <h2 class="section-title light">We'd Love to<br>Hear from You</h2>
-      <p class="contact-text">For franchise enquiries, catering, feedback, or just to say hi — drop us a line.</p>
-      <a href="mailto:admin@akinabalu.com" class="contact-email">admin@akinabalu.com</a>
+      <div class="section-eyebrow reveal">Get in Touch</div>
+      <h2 class="section-title light reveal reveal-d1">We'd Love to<br>Hear from You</h2>
+      <p class="contact-text reveal reveal-d2">For franchise enquiries, catering, feedback, or just to say hi — drop us a line.</p>
+      <a href="mailto:admin@akinabalu.com" class="contact-email reveal reveal-d3">admin@akinabalu.com</a>
     </div>
   </section>
 
@@ -847,11 +1241,22 @@
   </footer>
 
   <script>
+    // ── Preloader ──
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      setTimeout(() => {
+        preloader.classList.add('hidden');
+        setTimeout(() => preloader.remove(), 700);
+      }, 900);
+    });
+
+    // ── Sticky nav ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
 
+    // ── Mobile menu ──
     function toggleMenu() {
       document.getElementById('navLinks').classList.toggle('open');
     }
@@ -861,6 +1266,18 @@
         document.getElementById('navLinks').classList.remove('open');
       });
     });
+
+    // ── Scroll reveal ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   </script>
 
 </body>
