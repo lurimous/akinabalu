@@ -25,6 +25,7 @@
 
   <link rel="icon" type="image/png" href="aki-nabalu_rounded.png">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -501,13 +502,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
       margin: 0 auto 20px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.12);
       transition: transform 0.2s, background 0.2s;
     }
 
+    .why-icon svg { width: 28px; height: 28px; stroke: #fff; stroke-width: 1.75; transition: stroke 0.2s; }
+
     .why-card:hover .why-icon { transform: scale(1.1); background: var(--gold); }
+    .why-card:hover .why-icon svg { stroke: var(--dark); }
 
     .why-card h3 {
       font-family: 'Bebas Neue', sans-serif;
@@ -555,7 +558,8 @@
 
     .location-card:hover { background: rgba(255,255,255,0.18); }
 
-    .location-card .loc-icon { font-size: 36px; margin-bottom: 14px; }
+    .location-card .loc-icon { margin-bottom: 14px; }
+    .location-card .loc-icon svg { width: 36px; height: 36px; stroke: rgba(255,255,255,0.85); stroke-width: 1.5; }
 
     .location-card h4 {
       font-family: 'Bebas Neue', sans-serif;
@@ -1108,22 +1112,22 @@
       </div>
       <div class="why-grid">
         <div class="why-card reveal reveal-d1">
-          <div class="why-icon">❄️</div>
+          <div class="why-icon"><i data-lucide="snowflake"></i></div>
           <h3>Premium Frozen Supply</h3>
           <p>Our chicken is blast-frozen at peak freshness and sourced through Borneo Frozen & Food Supplies — locking in quality from farm to fryer.</p>
         </div>
         <div class="why-card reveal reveal-d2">
-          <div class="why-icon">🌶️</div>
+          <div class="why-icon"><i data-lucide="flame"></i></div>
           <h3>Bold Flavors</h3>
           <p>12 secret spices, perfected over years. Hand-marinated before every cook — a flavor profile that keeps you coming back.</p>
         </div>
         <div class="why-card reveal reveal-d3">
-          <div class="why-icon">👨‍👩‍👧</div>
+          <div class="why-icon"><i data-lucide="users"></i></div>
           <h3>Family Friendly</h3>
           <p>Mild to extra spicy, kids meals to sharing buckets — there's something for every table at Aki-Nabalu.</p>
         </div>
         <div class="why-card reveal reveal-d4">
-          <div class="why-icon">⚡</div>
+          <div class="why-icon"><i data-lucide="zap"></i></div>
           <h3>Cooked to Order</h3>
           <p>No heat lamps, no sitting under warming lights. Every piece is fried fresh when you order — so the crunch is always real.</p>
         </div>
@@ -1193,19 +1197,19 @@
       <p class="section-sub reveal reveal-d2">We're growing fast. Aki-Nabalu is expanding across Malaysia — watch this space for new openings near you.</p>
       <div class="locations-grid">
         <div class="location-card reveal reveal-d1">
-          <div class="loc-icon">📍</div>
+          <div class="loc-icon"><i data-lucide="map-pin"></i></div>
           <h4>Kota Kinabalu</h4>
           <p>Sabah's capital — where our roots run deep. Our flagship outlet opening soon.</p>
           <span class="coming-soon">Coming Soon</span>
         </div>
         <div class="location-card reveal reveal-d2">
-          <div class="loc-icon">📍</div>
+          <div class="loc-icon"><i data-lucide="map-pin"></i></div>
           <h4>Kuala Lumpur</h4>
           <p>Bringing Bornean bold flavors to the heart of Malaysia's capital.</p>
           <span class="coming-soon">Coming Soon</span>
         </div>
         <div class="location-card reveal reveal-d3">
-          <div class="loc-icon">📍</div>
+          <div class="loc-icon"><i data-lucide="map-pin"></i></div>
           <h4>More Cities</h4>
           <p>Penang, Johor Bahru, Kuching and beyond — we're on our way.</p>
           <span class="coming-soon">Stay Tuned</span>
@@ -1298,6 +1302,9 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Lucide icons ──
+    lucide.createIcons();
   </script>
 
 </body>
