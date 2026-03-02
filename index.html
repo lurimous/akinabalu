@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aki-Nabalu Fried Chicken</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:      #F5A800;
+      --gold-dark: #D48F00;
+      --red:       #C0392B;
+      --cream:     #FDF5E6;
+      --dark:      #1A1A1A;
+      --mid:       #2C2C2C;
+      --muted:     #6b6b6b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--dark);
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: transparent;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(26,26,26,0.96);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+
+    .nav-logo img { height: 44px; width: auto; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--dark) !important;
+      opacity: 1 !important;
+      font-weight: 700 !important;
+      padding: 10px 22px;
+      border-radius: 50px;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover { background: var(--gold-dark) !important; transform: translateY(-1px); }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 101;
+    }
+
+    .nav-hamburger span {
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background:
+        radial-gradient(ellipse at 65% 40%, rgba(245,168,0,0.13) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.11) 0%, transparent 50%),
+        #1A1A1A;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-logo {
+      width: min(260px, 60vw);
+      margin-bottom: 32px;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+      position: relative;
+      animation: floatUp 0.8s ease both;
+    }
+
+    @keyframes floatUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 10vw, 110px);
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+      position: relative;
+      animation: floatUp 0.8s 0.15s ease both;
+    }
+
+    .hero-headline span { color: var(--gold); }
+
+    .hero-sub {
+      margin-top: 20px;
+      font-size: clamp(14px, 2vw, 17px);
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.75;
+      position: relative;
+      animation: floatUp 0.8s 0.28s ease both;
+    }
+
+    .hero-actions {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      animation: floatUp 0.8s 0.4s ease both;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(245,168,0,0.35);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245,168,0,0.45);
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 13px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.35;
+      animation: bounce 2s infinite;
+    }
+
+    .hero-scroll span {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ── SHARED SECTION ── */
+    section { padding: 96px 24px; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 60px);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      color: var(--dark);
+    }
+
+    .section-title.light { color: #fff; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--cream); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-text p {
+      margin-top: 20px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .about-text p + p { margin-top: 14px; }
+
+    .about-stat-row {
+      display: flex;
+      gap: 40px;
+      margin-top: 36px;
+    }
+
+    .about-stat strong {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    .about-stat span {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .about-visual-inner {
+      background: var(--dark);
+      border-radius: 16px;
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(26,26,26,0.2);
+      position: relative;
+    }
+
+    .about-visual-inner img {
+      width: 72%;
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.6));
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: var(--gold);
+      color: var(--dark);
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-align: center;
+      line-height: 1.3;
+      box-shadow: 0 8px 24px rgba(245,168,0,0.4);
+    }
+
+    .about-badge strong { font-size: 26px; line-height: 1; }
+
+    .about-visual { position: relative; }
+
+    /* ── MENU ── */
+    #menu { background: var(--dark); }
+
+    .menu-grid {
+      margin-top: 52px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .menu-card {
+      background: var(--mid);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px var(--gold);
+    }
+
+    .menu-card-img {
+      background: #111;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+    }
+
+    .menu-card-body { padding: 24px; }
+
+    .menu-card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .menu-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .menu-card-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── WHY US ── */
+    #why { background: var(--cream); }
+
+    .why-header { text-align: center; }
+
+    .why-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .why-card { text-align: center; }
+
+    .why-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .why-card:hover .why-icon { transform: scale(1.1); background: var(--gold); }
+
+    .why-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .why-card p { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+    /* ── LOCATIONS ── */
+    #locations {
+      background: var(--red);
+      text-align: center;
+    }
+
+    #locations .section-eyebrow { color: rgba(255,255,255,0.6); }
+    #locations .section-title { color: #fff; }
+
+    .section-sub {
+      color: rgba(255,255,255,0.65);
+      margin-top: 16px;
+      font-size: 15px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .locations-grid {
+      margin-top: 52px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .location-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      padding: 36px 24px;
+      transition: background 0.2s;
+    }
+
+    .location-card:hover { background: rgba(255,255,255,0.18); }
+
+    .location-card .loc-icon { font-size: 36px; margin-bottom: 14px; }
+
+    .location-card h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .location-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    .coming-soon {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 50px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: #111;
+      text-align: center;
+    }
+
+    #contact .section-title { color: #fff; }
+
+    .contact-text {
+      margin-top: 16px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+    }
+
+    .contact-email {
+      display: inline-block;
+      margin-top: 28px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .contact-email:hover { border-color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 56px 24px 0;
+    }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand img { height: 52px; margin-bottom: 16px; display: block; }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.8;
+      max-width: 260px;
+    }
+
+    .social-links { display: flex; gap: 12px; margin-top: 20px; }
+
+    .social-link {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,168,0,0.08);
+    }
+
+    .footer-col h5 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li + li { margin-top: 10px; }
+
+    .footer-col ul a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.22);
+    }
+
+    .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(26,26,26,0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        z-index: 99;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 22px; }
+      .nav-hamburger { display: flex; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-visual { order: -1; }
+      .about-badge { display: none; }
+
+      .menu-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .locations-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 72px 20px; }
+      .why-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo">
+      <img src="aki-nabalu_rounded.png" alt="Aki-Nabalu Fried Chicken">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#locations">Locations</a></li>
+      <li><a href="#contact" class="nav-cta">Order Now</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <img class="hero-logo" src="aki-nabalu_rounded.png" alt="Aki-Nabalu Fried Chicken">
+    <h1 class="hero-headline">Crispy. <span>Bold.</span><br>Legendary.</h1>
+    <p class="hero-sub">Born in Borneo. Raised on bold flavors. Aki-Nabalu Fried Chicken brings you the crunchiest, most satisfying chicken you've ever tasted.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#locations" class="btn-outline">Find a Location</a>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-eyebrow">Our Story</div>
+          <h2 class="section-title">Flavor Rooted<br>in Heritage</h2>
+          <p>Named after the legendary peaks of Mount Kinabalu, Aki-Nabalu Fried Chicken was founded on a simple promise — serve food that's as bold and unforgettable as the mountains that inspired us.</p>
+          <p>Every piece of chicken is hand-marinated with our signature spice blend, coated in a perfectly seasoned crispy crust, and cooked fresh to order. No shortcuts. No compromise. Just great chicken.</p>
+          <div class="about-stat-row">
+            <div class="about-stat">
+              <strong>100%</strong>
+              <span>Fresh Daily</span>
+            </div>
+            <div class="about-stat">
+              <strong>12+</strong>
+              <span>Secret Spices</span>
+            </div>
+            <div class="about-stat">
+              <strong>Est.</strong>
+              <span>2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="about-visual-inner">
+            <img src="aki-nabalu_rounded.png" alt="Aki-Nabalu Mascot">
+          </div>
+          <div class="about-badge">
+            <strong>Est.</strong>
+            2026
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="container">
+      <div class="section-eyebrow">What We Serve</div>
+      <h2 class="section-title light">Our Signature Menu</h2>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card-img">🍗</div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Signature</div>
+            <div class="menu-card-title">Crispy Fried Chicken</div>
+            <p class="menu-card-desc">Our classic — golden, crunchy, and bursting with bold Bornean spice. Available in original, spicy, and extra spicy.</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img">🍔</div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Fan Favourite</div>
+            <div class="menu-card-title">Chicken Burgers</div>
+            <p class="menu-card-desc">Juicy crispy chicken fillet stacked high in a toasted brioche bun with house slaw and our secret sauce.</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img">🍟</div>
+          <div class="menu-card-body">
+            <div class="menu-card-tag">Sides & More</div>
+            <div class="menu-card-title">Sides & Combos</div>
+            <p class="menu-card-desc">Crispy fries, coleslaw, corn on the cob, and refreshing drinks — build your perfect Aki-Nabalu feast.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <div class="container">
+      <div class="why-header">
+        <div class="section-eyebrow">Why Choose Us</div>
+        <h2 class="section-title">The Aki-Nabalu<br>Difference</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🌿</div>
+          <h3>Fresh Ingredients</h3>
+          <p>We source locally and prepare fresh every single day. No frozen shortcuts — ever.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🌶️</div>
+          <h3>Bold Flavors</h3>
+          <p>12 secret spices, perfected over years. A flavor profile that keeps you coming back.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">👨‍👩‍👧</div>
+          <h3>Family Friendly</h3>
+          <p>A welcoming space for everyone — great food should bring people together.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⚡</div>
+          <h3>Fast Service</h3>
+          <p>Hot, fresh, and in your hands fast. Because good food shouldn't keep you waiting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section id="locations">
+    <div class="container">
+      <div class="section-eyebrow">Find Us</div>
+      <h2 class="section-title">Coming to a City<br>Near You</h2>
+      <p class="section-sub">We're growing fast. Aki-Nabalu is expanding across Malaysia — watch this space for new openings near you.</p>
+      <div class="locations-grid">
+        <div class="location-card">
+          <div class="loc-icon">📍</div>
+          <h4>Kota Kinabalu</h4>
+          <p>Sabah's capital — where our roots run deep. Our flagship outlet opening soon.</p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+        <div class="location-card">
+          <div class="loc-icon">📍</div>
+          <h4>Kuala Lumpur</h4>
+          <p>Bringing Bornean bold flavors to the heart of Malaysia's capital.</p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+        <div class="location-card">
+          <div class="loc-icon">📍</div>
+          <h4>More Cities</h4>
+          <p>Penang, Johor Bahru, Kuching and beyond — we're on our way.</p>
+          <span class="coming-soon">Stay Tuned</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-eyebrow">Get in Touch</div>
+      <h2 class="section-title light">We'd Love to<br>Hear from You</h2>
+      <p class="contact-text">For franchise enquiries, catering, feedback, or just to say hi — drop us a line.</p>
+      <a href="mailto:admin@akinabalu.com" class="contact-email">admin@akinabalu.com</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="aki-nabalu_rounded.png" alt="Aki-Nabalu">
+        <p>Bold flavors, crispy perfection, and a whole lot of heart. Aki-Nabalu Fried Chicken — legendary since 2026.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">f</a>
+          <a href="#" class="social-link" aria-label="Instagram">&#9670;</a>
+          <a href="#" class="social-link" aria-label="TikTok">&#9654;</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#locations">Locations</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:admin@akinabalu.com">admin@akinabalu.com</a></li>
+          <li><a href="https://akinabalu.com">akinabalu.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Aki-Nabalu Fried Chicken. All rights reserved.</span>
+      <a href="https://akinabalu.com">akinabalu.com</a>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
