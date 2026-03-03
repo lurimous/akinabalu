@@ -825,6 +825,46 @@
 
     .nav-links > li:not(.nav-dropdown) > a:not(.nav-cta):hover::after { width: 100%; }
 
+    /* ── CART ── */
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .cart-features {
+      list-style: none;
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cart-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .cart-features li svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gold);
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .cart-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      filter: drop-shadow(0 12px 40px rgba(0,0,0,0.5));
+    }
+
     /* ── ORDER ── */
     #order { background: var(--dark); }
 
@@ -915,6 +955,12 @@
       position: relative;
     }
 
+    .order-cart-secondary {
+      margin-top: 16px;
+      animation-delay: 0.6s !important;
+      opacity: 0.88;
+    }
+
     @keyframes floatCart {
       0%, 100% { transform: translateY(0); }
       50%       { transform: translateY(-12px); }
@@ -967,6 +1013,7 @@
       .about-visual { order: -1; }
       .about-badge { display: none; }
 
+      .cart-grid { grid-template-columns: 1fr; gap: 40px; }
       .menu-grid { grid-template-columns: 1fr; }
       .why-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
       .order-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1064,6 +1111,28 @@
             <strong>Est.</strong>
             2026
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR CART -->
+  <section id="cart" style="background:#111;">
+    <div class="container">
+      <div class="cart-grid">
+        <div class="cart-text reveal">
+          <div class="section-eyebrow">The Mobile Kitchen</div>
+          <h2 class="section-title light">Built to Roll.<br>Built to Crunch.</h2>
+          <p style="margin-top:20px;font-size:15px;color:rgba(255,255,255,0.5);line-height:1.85;">Our flagship Aki-Nabalu cart is a fully self-contained mobile kitchen — solar-powered, bold-branded, and ready to bring crispy fried chicken straight to you. Designed with a curved aluminium chassis, integrated LED display, and a rear service bay, it's engineered for speed and style.</p>
+          <ul class="cart-features reveal reveal-d1">
+            <li><i data-lucide="sun"></i> Solar photovoltaic roof</li>
+            <li><i data-lucide="monitor"></i> LED digital display panel</li>
+            <li><i data-lucide="zap"></i> Fully self-powered electrical system</li>
+            <li><i data-lucide="truck"></i> Single-axle towable chassis</li>
+          </ul>
+        </div>
+        <div class="cart-visual reveal reveal-d2">
+          <img src="assets/wireframe.png" alt="Aki-Nabalu Cart Design">
         </div>
       </div>
     </div>
@@ -1183,6 +1252,7 @@
         <div class="order-visual reveal reveal-d2">
           <div class="order-cart-wrap">
             <img src="assets/cart.png" alt="Order Online">
+            <img class="order-cart-secondary" src="assets/cart2.png" alt="Order Online">
           </div>
         </div>
       </div>
